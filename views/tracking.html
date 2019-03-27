@@ -17,37 +17,27 @@
   <div class="demo-frame">
     <div class="demo-container">
       <div id="rectangle"></div>
-      <video id="video" playsinline autoplay></video>
+      <video id="video" width="640" height="480" playsinline autoplay></video>
       <canvas id="canvas" width="640" height="480"></canvas>
     </div>
   </div>
 
   <script>
-    const width = 640;
-    const height = 480;
-
-    const videoElement = document.querySelector('video');
-
-    videoElement.height = height;
-    videoElement.width = width;
+    var videoElement = document.querySelector('video');
+    
+    var trackLastRecArea = 0;
+    var trackLastRecHeight = 0;
 
     function startTracking() {
-      console.log("helllo")
       var canvas = document.getElementById('canvas');
       var context = canvas.getContext('2d');
 
-      tracking.ColorTracker.registerColor('purple', function(r, g, b) {
-        var dx = r - 120;
-        var dy = g - 60;
-        var dz = b - 210;
+      /*tracking.ColorTracker.registerColor('postit', function(r, g, b) {
+        
+        return ((Math.abs(r-253) < 10) && (Math.abs(g-237) < 10) && (Math.abs(b-208) < 10));
+      });*/
 
-        if ((b - g) >= 100 && (r - g) >= 60) {
-          return true;
-        }
-        return dx * dx + dy * dy + dz * dz < 3500;
-      });
-
-      var tracker = new tracking.ColorTracker(['yellow', 'purple']);
+      var tracker = new tracking.ColorTracker([ 'yellow' ]);
       tracker.setMinDimension(5);
 
       tracking.track('#video', tracker);
@@ -66,6 +56,7 @@
           context.fillStyle = "#fff";
           context.fillText('x: ' + rect.x + 'px', rect.x + rect.width + 5, rect.y + 11);
           context.fillText('y: ' + rect.y + 'px', rect.x + rect.width + 5, rect.y + 22);
+        
         });
       });
     }
