@@ -76,7 +76,6 @@ function gotStream(stream) {
 
   pixelRenderTimer = setInterval(function () {
     try {
-      for (let i = 0; i < blocksX; i++) {
         let imageData = videoContext.getImageData((i * block), (j * block), block, block);
 
         let r = 0;
@@ -91,28 +90,7 @@ function gotStream(stream) {
           a += imageData.data[k + 3];
         }
 
-        //average
-
-        r = r / (block * block);
-        g = g / (block * block);
-        b = b / (block * block);
-        a = a / (block * block);
-
-        let newImageData = [];
-
-        for (let k = 0; k < imageData.data.length; k += 4) {
-          newImageData[k] = r;
-          newImageData[k + 1] = g;
-          newImageData[k + 2] = b;
-          newImageData[k + 3] = a;
-        }
-      }
-
-      if (j < blocksY) {
-        j++
-      } else {
-        j = 0
-      }
+        
     } catch (e) {
       console.error(e);
     }
