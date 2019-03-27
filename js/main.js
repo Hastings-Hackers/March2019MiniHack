@@ -14,7 +14,6 @@ const pixelRefresh = Math.round(timePerRedraw / redrawsPerSecond);
 
 const videoElement = document.querySelector('video');
 const videoCanvasElement = document.querySelector('#video-canvas');
-const pixelCanvasElement = document.querySelector('#pixel-canvas');
 
 videoElement.height = height
 videoElement.width = width
@@ -22,12 +21,8 @@ videoElement.width = width
 videoCanvasElement.height = height
 videoCanvasElement.width = width
 
-pixelCanvasElement.height = height
-pixelCanvasElement.width = width
-
 const videoSelect = document.querySelector('select#videoSource');
 const videoContext = videoCanvasElement.getContext('2d');
-const pixelContext = pixelCanvasElement.getContext('2d');
 
 let videoRenderTimer = null;
 let pixelRenderTimer = null;
@@ -111,8 +106,6 @@ function gotStream(stream) {
           newImageData[k + 2] = b;
           newImageData[k + 3] = a;
         }
-
-        pixelContext.putImageData(new ImageData(new Uint8ClampedArray(newImageData), block, block), (i * block), (j * block));
       }
 
       if (j < blocksY) {
